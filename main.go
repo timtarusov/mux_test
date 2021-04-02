@@ -1,22 +1,14 @@
 package main
 
 import (
-	"encoding/json"
-	"fmt"
-	"github.com/gorilla/mux"
-	"net/http"
+	"os"
 )
 
 func main() {
-
-	r := mux.NewRouter()
-	r.HandleFunc("/", HomeHandler)
-	fmt.Println("Go to http://localhost:80")
-	http.ListenAndServe(":80", r)
-}
-
-func HomeHandler(w http.ResponseWriter, r *http.Request) {
-
-	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(map[string]int{"first":1, "second":2})
+	a := App{}
+	a.Initialize(
+		os.Getenv("APP_DB_USERNAME"),
+		os.Getenv("APP_DB_PASSWORD"),
+		os.Getenv("APP_DB_NAME"))
+	a.Run(":80")
 }
