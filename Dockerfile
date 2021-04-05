@@ -5,6 +5,6 @@ ADD . /app/
 WORKDIR /app
 COPY ./main.go .
 RUN go mod init github.com/timtarusov/mux_test && go get github.com/gorilla/mux && go get -u github.com/lib/pq
-RUN go build main.go
+RUN go build ../app
 EXPOSE 80
-CMD ["go", "run", "."]
+CMD ["go", "run", "../app"]
